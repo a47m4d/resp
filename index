@@ -1,1 +1,399 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليل الاستقبال | Reception Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  /* ===================== الألوان / TOKENS =====================
+     ورقة/دفتر قديم + أختام رسمية. لكل قسم لون "تبويب ملف" خاص فيه،
+     عشان تعرف وين انت بأول نظرة، زي ملفات الأرشيف الفعلية.
+  ================================================================ */
+  :root{
+    --paper:#F1ECDF;
+    --paper-raised:#FAF6EC;
+    --ink:#20291F;
+    --ink-soft:#57604F;
+    --line:#D8CFB8;
 
+    --tab-visa:#3A5A50;      /* القسم 1: التأشيرات - أخضر دفتري */
+    --tab-visa-soft:#E4EBE4;
+    --tab-id:#8A6A22;        /* القسم 2: الهوية - نحاسي */
+    --tab-id-soft:#F1E8D2;
+    --tab-fine:#9C3B2E;      /* القسم 3: المخالفات - أحمر ختم */
+    --tab-fine-soft:#F3E2DE;
+    --tab-ban:#3D3D3D;       /* القسم 4: الحظر - رمادي حبر */
+    --tab-ban-soft:#E9E7E2;
+    --tab-biz:#33586B;       /* القسم 5: الشركات - أزرق دفتري */
+    --tab-biz-soft:#E1E9EC;
+
+    --stamp:#B3462E;
+    --gold:#9C7A2E;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Cairo',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--stamp); color:#fff;}
+
+  /* ===================== الترويسة / HEADER ===================== */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--paper-raised);
+    border-bottom:3px double var(--ink);
+    padding:14px 18px 12px;
+  }
+  .head-row{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:12px; flex-wrap:wrap; max-width:1100px; margin:0 auto;
+  }
+  .brand h1{
+    margin:0; font-size:20px; font-weight:900; letter-spacing:.2px;
+  }
+  .brand span{
+    display:block; font-family:'IBM Plex Mono',monospace; font-size:11px;
+    letter-spacing:1.5px; color:var(--ink-soft); text-transform:uppercase; margin-top:2px;
+  }
+  #clock{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft);
+    white-space:nowrap;
+  }
+
+  .search-wrap{max-width:1100px; margin:12px auto 0; position:relative;}
+  #search{
+    width:100%; padding:12px 44px 12px 14px; border-radius:3px;
+    border:2px solid var(--ink); background:#fff; color:var(--ink);
+    font-family:'Cairo',sans-serif; font-size:15px; font-weight:600;
+    outline:none;
+  }
+  #search:focus{border-color:var(--stamp); box-shadow:0 0 0 3px rgba(179,70,46,.15);}
+  .search-wrap::after{
+    content:"⌕"; position:absolute; left:14px; top:50%; transform:translateY(-50%);
+    font-size:20px; color:var(--ink-soft); pointer-events:none;
+  }
+  #resultCount{
+    max-width:1100px; margin:6px auto 0; font-size:12px; color:var(--ink-soft);
+    font-family:'IBM Plex Mono',monospace; display:none;
+  }
+
+  /* ===================== تبويبات الملفات / FOLDER TABS =====================
+     كل قسم = "تبويب" بلون مختلف، مثل ملفات الأرشيف الفعلية على الرف.
+  ============================================================================ */
+  nav.tabs{
+    max-width:1100px; margin:14px auto 0; display:flex; gap:6px;
+    overflow-x:auto; padding-bottom:2px; scrollbar-width:thin;
+  }
+  nav.tabs::-webkit-scrollbar{height:5px;}
+  nav.tabs::-webkit-scrollbar-thumb{background:var(--line); border-radius:4px;}
+  .tab-btn{
+    flex:0 0 auto; cursor:pointer; border:none; font-family:'Cairo',sans-serif;
+    font-weight:700; font-size:13px; padding:9px 16px 7px; border-radius:6px 6px 0 0;
+    color:#fff; opacity:.55; transition:opacity .15s ease, transform .1s ease;
+    position:relative; top:2px;
+  }
+  .tab-btn:hover{opacity:.8;}
+  .tab-btn.active{opacity:1; top:0;}
+  .tab-btn[data-tab="all"]{background:var(--ink);}
+  .tab-btn[data-tab="visa"]{background:var(--tab-visa);}
+  .tab-btn[data-tab="id"]{background:var(--tab-id);}
+  .tab-btn[data-tab="fine"]{background:var(--tab-fine);}
+  .tab-btn[data-tab="ban"]{background:var(--tab-ban);}
+  .tab-btn[data-tab="biz"]{background:var(--tab-biz);}
+
+  main{max-width:1100px; margin:0 auto; padding:22px 16px 70px;}
+
+  section.category{margin-top:8px; padding-top:34px;}
+  section.category:first-child{padding-top:8px;}
+
+  .cat-heading{
+    display:flex; align-items:center; gap:10px; margin-bottom:14px;
+    padding-bottom:8px; border-bottom:2px solid var(--line);
+  }
+  .cat-dot{width:14px; height:14px; border-radius:3px; flex:0 0 auto;}
+  .cat-heading h2{margin:0; font-size:19px; font-weight:900;}
+  .cat-heading small{
+    display:block; font-family:'IBM Plex Mono',monospace; font-size:11px;
+    color:var(--ink-soft); font-weight:600; letter-spacing:.5px;
+  }
+
+  .sub-heading{
+    font-size:15px; font-weight:700; margin:22px 0 10px; padding-right:10px;
+    border-right:4px solid var(--dot,var(--ink)); color:var(--ink);
+  }
+  .sub-heading em{
+    display:block; font-style:normal; font-weight:600; font-size:12px;
+    color:var(--ink-soft); margin-top:1px;
+  }
+
+  /* ===================== بطاقات الخدمة / CARDS ===================== */
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:12px;}
+
+  .card{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:4px;
+    padding:14px 14px 12px; position:relative; overflow:hidden;
+  }
+  .card::before{
+    content:""; position:absolute; top:0; right:0; width:38px; height:38px;
+    background:var(--dot,var(--ink)); opacity:.14;
+    clip-path:polygon(100% 0, 0 0, 100% 100%);
+  }
+  .card h3{margin:0 0 8px; font-size:15px; font-weight:800;}
+  .card h3 small{
+    display:block; font-weight:600; font-size:11.5px; color:var(--ink-soft); margin-top:1px;
+  }
+  .card .doc-block{font-size:12.5px; line-height:1.85; color:var(--ink); margin-bottom:10px; white-space:pre-line;}
+  .card .doc-block .en{display:block; color:var(--ink-soft); font-size:11.5px;}
+
+  .fee-list{display:flex; flex-direction:column; gap:4px; margin-top:auto;}
+  .fee-row{
+    display:flex; justify-content:space-between; align-items:baseline; gap:8px;
+    font-size:12.5px; border-top:1px dashed var(--line); padding-top:4px;
+  }
+  .fee-row .label{color:var(--ink-soft);}
+  .fee-row .amt{
+    font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--gold);
+    white-space:nowrap; direction:ltr;
+  }
+  .fee-total{
+    margin-top:8px; padding-top:8px; border-top:2px solid var(--ink);
+    display:flex; justify-content:space-between; font-weight:800; font-size:13px;
+  }
+  .fee-total .amt{font-family:'IBM Plex Mono',monospace; color:var(--stamp); direction:ltr;}
+
+  /* ===================== قائمة/جدول مبسط ===================== */
+  .plain-table{width:100%; border-collapse:collapse; font-size:13px; background:var(--paper-raised); border:1px solid var(--line); border-radius:4px; overflow:hidden;}
+  .plain-table th, .plain-table td{padding:9px 12px; text-align:right; vertical-align:top; border-bottom:1px solid var(--line);}
+  .plain-table th{background:var(--dot,var(--ink)); color:#fff; font-weight:700; font-size:12.5px;}
+  .plain-table td.en{color:var(--ink-soft); font-size:12px;}
+  .plain-table tr:last-child td{border-bottom:none;}
+  .plain-table td.amt{font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--gold); white-space:nowrap;}
+  .table-wrap{overflow-x:auto; margin-bottom:6px;}
+
+  .note-list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px;}
+  .note-list li{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:4px;
+    padding:10px 12px; font-size:13px; display:flex; gap:10px; align-items:flex-start;
+  }
+  .note-list li .n{
+    flex:0 0 auto; width:22px; height:22px; border-radius:50%; background:var(--dot,var(--ink));
+    color:#fff; font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .note-list .en{display:block; color:var(--ink-soft); font-size:11.5px; margin-top:2px;}
+
+  /* ===================== خط سير الخطوات (القسم 2 فقط - عملية فعلية بترتيب) ===================== */
+  .stepper{list-style:none; margin:0; padding:0; position:relative;}
+  .stepper::before{
+    content:""; position:absolute; top:6px; bottom:6px; right:15px; width:2px; background:var(--line);
+  }
+  .stepper li{
+    position:relative; padding:2px 46px 22px 0; min-height:34px;
+  }
+  .stepper li:last-child{padding-bottom:2px;}
+  .step-num{
+    position:absolute; top:0; right:0; width:32px; height:32px; border-radius:50%;
+    background:var(--tab-id); color:#fff; font-family:'IBM Plex Mono',monospace; font-weight:700;
+    display:flex; align-items:center; justify-content:center; font-size:14px; z-index:1;
+  }
+  .step-title{font-weight:700; font-size:14px;}
+  .step-title .en{display:block; font-weight:600; color:var(--ink-soft); font-size:12px; margin-top:1px;}
+
+  mark{background:#F4D35E; color:var(--ink); border-radius:2px; padding:0 1px;}
+  .hidden{display:none !important;}
+
+  footer{
+    text-align:center; padding:26px 16px 40px; color:var(--ink-soft); font-size:11.5px;
+    font-family:'IBM Plex Mono',monospace;
+  }
+
+  @media (max-width:600px){
+    .brand h1{font-size:17px;}
+    #clock{display:none;}
+    .cat-heading h2{font-size:17px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-row">
+    <div class="brand">
+      <h1>دليل الاستقبال المزدوج</h1>
+      <span>Bilingual Reception Reference · Ajman, UAE</span>
+    </div>
+    <div id="clock"></div>
+  </div>
+  <div class="search-wrap">
+    <input id="search" type="text" placeholder="ابحث عن أي معلومة… رسوم، مستند، نوع تأشيرة… / search anything">
+  </div>
+  <div id="resultCount"></div>
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="all">الكل · All</button>
+    <button class="tab-btn" data-tab="visa">١ التأشيرات</button>
+    <button class="tab-btn" data-tab="id">٢ الهوية والتثبيت</button>
+    <button class="tab-btn" data-tab="fine">٣ المخالفات</button>
+    <button class="tab-btn" data-tab="ban">٤ الحظر</button>
+    <button class="tab-btn" data-tab="biz">٥ الشركات والبنوك</button>
+  </nav>
+</header>
+
+<main id="content">
+
+  <!-- ============================================================
+       القسم ١ — التأشيرات والإقامات
+       ============================================================ -->
+  <section class="category" data-cat="visa" style="--dot:var(--tab-visa)">
+    <div class="cat-heading">
+      <span class="cat-dot" style="background:var(--tab-visa)"></span>
+      <div><h2>التأشيرات والإقامات</h2><small>SECTION 1 · VISAS &amp; RESIDENCIES</small></div>
+    </div>
+
+    <div class="sub-heading">١.١ الإقامة الذهبية <em>1.1 Golden Visa</em></div>
+    <div class="grid">
+
+      <div class="card" data-search="المدير Manager الإقامة الذهبية Golden Visa شهادة جامعية خبرة راتب NOC">
+        <h3>المدير <small>Manager</small></h3>
+        <div class="doc-block">- شهادة جامعية مصدقة ومعادلة
+- خبرة سنتين في الشركة
+- راتب أساسي 30,000 درهم
+- رسالة عدم ممانعة (NOC)
+<span class="en">Attested &amp; equated degree · 2 yrs experience · 30K basic salary · NOC</span></div>
+        <div class="fee-list">
+          <div class="fee-row"><span class="label">الفحص (VIP Medical)</span><span class="amt">780</span></div>
+          <div class="fee-row"><span class="label">الإقامة (Visa)</span><span class="amt">2709.9</span></div>
+          <div class="fee-row"><span class="label">الهوية (EID)</span><span class="amt">1238.55</span></div>
+        </div>
+      </div>
+
+      <div class="card" data-search="المستثمر Investor الإقامة الذهبية Golden Visa رخصة تجارية كشف حساب تدقيق VAT">
+        <h3>المستثمر <small>Investor</small></h3>
+        <div class="doc-block">- الرخصة التجارية وعقد التأسيس
+- كشف حساب 6 أشهر
+- تقرير تدقيق مالي
+- تسجيل ضريبي (VAT)
+<span class="en">Trade license &amp; MOA · 6-mo bank statement · audit report · VAT registration</span></div>
+        <div class="fee-list">
+          <div class="fee-row"><span class="label">الفحص (VIP Medical)</span><span class="amt">780</span></div>
+          <div class="fee-row"><span class="label">الإقامة (Visa)</span><span class="amt">2709.9</span></div>
+          <div class="fee-row"><span class="label">الهوية (EID)</span><span class="amt">1238.55</span></div>
+        </div>
+      </div>
+
+      <div class="card" data-search="عائلة الذهبية Family الإقامة الذهبية Golden Visa شهادات زواج ميلاد جوازات">
+        <h3>عائلة الذهبية <small>Family</small></h3>
+        <div class="doc-block">- شهادات زواج وميلاد مصدقة
+- جوازات السفر
+- هوية الكفيل الأصلية
+<span class="en">Attested marriage/birth certs · passports · sponsor's original ID</span></div>
+        <div class="fee-list">
+          <div class="fee-row"><span class="label">الفحص (Medical)</span><span class="amt">354</span></div>
+          <div class="fee-row"><span class="label">الإقامة (Visa)</span><span class="amt">2707.5</span></div>
+          <div class="fee-row"><span class="label">الهوية (EID)</span><span class="amt">1238.55</span></div>
+        </div>
+      </div>
+
+      <div class="card" data-search="مستثمر عقاري Property الإقامة الذهبية Golden Visa ملكية عقار تأمين صحي">
+        <h3>مستثمر عقاري <small>Property</small></h3>
+        <div class="doc-block">- ملكية عقار بـ 2 مليون درهم فأكثر
+- تأمين صحي
+<span class="en">Title deed 2M+ AED · health insurance</span></div>
+        <div class="fee-total"><span>الإجمالي · Total</span><span class="amt">5,000–10,000</span></div>
+      </div>
+    </div>
+
+    <div class="sub-heading">١.٢ كفالة العائلة والأقارب — سنتين <em>1.2 Family Sponsorship – 2 Years</em></div>
+    <div class="grid">
+
+      <div class="card" data-search="عائلة دبي Dubai Family كفالة العائلة عقد عمل إيجاري">
+        <h3>عائلة دبي <small>Dubai Family</small></h3>
+        <div class="doc-block">عقد عمل/شهادة راتب، عقد إيجار، شهادات مصدقة (زواج/ميلاد)، الجوازات، هوية الكفيل.
+<span class="en">Labor contract/salary cert, Ejari, attested certs, passports, sponsor ID.</span></div>
+        <div class="fee-list">
+          <div class="fee-row"><span class="label">فتح ملف (File)</span><span class="amt">283</span></div>
+          <div class="fee-row"><span class="label">خارج (Outside)</span><span class="amt">488</span></div>
+          <div class="fee-row"><span class="label">داخل (Inside)</span><span class="amt">1088</span></div>
+          <div class="fee-row"><span class="label">تعديل (Status)</span><span class="amt">638</span></div>
+          <div class="fee-row"><span class="label">فحص (Medical)</span><span class="amt">354</span></div>
+          <div class="fee-row"><span class="label">هوية (EID)</span><span class="amt">438</span></div>
+          <div class="fee-row"><span class="label">تثبيت (Stamping)</span><span class="amt">510</span></div>
+        </div>
+      </div>
+
+      <div class="card" data-search="عائلة أبوظبي AUH Family كفالة العائلة">
+        <h3>عائلة أبوظبي <small>AUH Family</small></h3>
+        <div class="doc-block">نفس مستندات دبي.
+<span class="en">Same as Dubai documents.</span></div>
+        <div class="fee-list">
+          <div class="fee-row"><span class="label">فتح ملف (File)</span><span class="amt">356</span></div>
+          <div class="fee-row"><span class="label">تأشيرة (Visa)</span><span class="amt">440</span></div>
+          <div class="fee-row"><span class="label">تعديل (Status)</span><span class="amt">680</span></div>
+          <div class="fee-row"><span class="label">فحص (Medical)</span><span class="amt">320</span></div>
+          <div class="fee-row"><span class="label">تأمين (Insurance)</span><span class="amt">1700</span></div>
+          <div class="fee-row"><span class="label">هوية+تثبيت (ID+Stamp)</span><span class="amt">920</span></div>
+        </div>
+      </div>
+
+      <div class="card" data-search="كفالة الابنة Daughter عدم ممانعة إقرار عدم زواج">
+        <h3>كفالة الابنة <small>Daughter</small></h3>
+        <div class="doc-block">إضافة: رسالة عدم ممانعة من الأب، إقرار عدم زواج.
+<span class="en">Add: father's NOC, unmarried letter.</span></div>
+        <div class="fee-list">
+          <div class="fee-row"><span class="label">خارج (Outside)</span><span class="amt">500</span></div>
+          <div class="fee-row"><span class="label">داخل (Inside)</span><span class="amt">1100</span></div>
+          <div class="fee-row"><span class="label">فحص (Medical)</span><span class="amt">354</span></div>
+          <div class="fee-row"><span class="label">هوية (EID)</span><span class="amt">438</span></div>
+          <div class="fee-row"><span class="label">تثبيت (Stamping)</span><span class="amt">510</span></div>
+        </div>
+      </div>
+
+      <div class="card" data-search="كفالة الأم Mother عدم ممانعة">
+        <h3>كفالة الأم <small>Mother</small></h3>
+        <div class="doc-block">إضافة: رسالة عدم ممانعة من الأب.
+<span class="en">Add: father's NOC.</span></div>
+        <div class="fee-list">
+          <div class="fee-row"><span class="label">خارج (Outside)</span><span class="amt">500</span></div>
+          <div class="fee-row"><span class="label">داخل (Inside)</span><span class="amt">1088.9</span></div>
+          <div class="fee-row"><span class="label">فحص (Medical)</span><span class="amt">354</span></div>
+          <div class="fee-row"><span class="label">هوية (EID)</span><span class="amt">438</span></div>
+          <div class="fee-row"><span class="label">تثبيت (Stamping)</span><span class="amt">510</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-heading">١.٣ كفالة الوالدين — سنة واحدة <em>1.3 Parents Sponsorship – 1 Year</em></div>
+    <div class="table-wrap">
+      <table class="plain-table" data-search="كفالة الوالدين Parents Sponsorship إيجار غرفتين وصالة راتب كشف حساب قرابة">
+        <thead><tr><th>الخدمة · Service</th><th>السعر (درهم) · Price</th></tr></thead>
+        <tbody>
+          <tr><td>فتح ملف <span class="en">Open File</span></td><td class="amt">284</td></tr>
+          <tr><td>تأشيرة الخارج <span class="en">Outside Visa</span></td><td class="amt">500</td></tr>
+          <tr><td>تأشيرة الداخل <span class="en">Inside Visa</span></td><td class="amt">1100</td></tr>
+          <tr><td>تعديل الوضع <span class="en">Change Status</span></td><td class="amt">635</td></tr>
+          <tr><td>الفحص الطبي <span class="en">Medical Test</span></td><td class="amt">354</td></tr>
+          <tr><td>هوية إماراتية <span class="en">Emirates ID</span></td><td class="amt">338</td></tr>
+          <tr><td>تثبيت الإقامة <span class="en">Stamping</span></td><td class="amt">410</td></tr>
+          <tr><td>وديعة مالية <span class="en">Deposit</span></td><td class="amt">5000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note-list" style="margin-top:8px;">
+      <li><span class="n">i</span><div>المستندات: عقد إيجار (غرفتين وصالة)، إثبات راتب (10,000 درهم)، كشف حساب 3 أشهر، إثبات صلة قرابة، الجوازات.
+        <span class="en">Docs: 2-bed Ejari, 10K salary proof, 3-mo bank statement, kinship proof, passports.</span></div></li>
+    </div>
+
+    <div class="sub-heading">١.٤ تأشيرات الزيارة <em>1.4 Visit Visas</em></div>
+    <div class="table-wrap">
+      <table class="plain-table" data-search="تأشيرات الزيارة Visit Visas دخول جديد زيارة 90 يوم عائلية قريب صديق">
+        <thead><tr><th>النوع · Type</th><th>المستندات · Documents</th><th>السعر (درهم) · Price</th></tr></thead>
+        <tbody>
+          <tr><td>دخول جديد (خارج الدولة) <span class="en">New Entry (Outside)</span></td><td class="en">جواز سفر، صورة شخصية. / Passport, photo.</td><td class="amt">1418.75</td></tr>
+          <tr><td>زيارة 90 يوم (داخل الدولة) <span class="en">90 Days (Inside)</span></td><td class="en">جواز السفر، التأشيرة الحالية. / Passport, current visa.</td><td class="amt">2421.5<br><small style="font-family:'Cairo';color:var(--ink-soft);">تأشيرة 2290 + تأمين 94.50 +
