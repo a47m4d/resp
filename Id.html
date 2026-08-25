@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إجراءات إصدار الهوية والإقامة | دليل الاستقبال</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F1ECDF;
+    --paper-raised:#FAF6EC;
+    --ink:#20291F;
+    --ink-soft:#57604F;
+    --line:#D8CFB8;
+    --gold:#9C7A2E;
+    --stamp:#B3462E;
+    --accent: #8A6A22;
+    --accent-soft: #8A6A221f;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:'Cairo',sans-serif; -webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--stamp); color:#fff;}
+
+  header{
+    position:sticky; top:0; z-index:50; background:var(--paper-raised);
+    border-bottom:4px solid var(--accent); padding:14px 18px 14px;
+  }
+  .head-row{max-width:1000px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+  .back-link{
+    font-family:'Cairo',sans-serif; font-weight:700; font-size:13px; color:var(--ink-soft);
+    text-decoration:none; border:1px solid var(--line); border-radius:5px; padding:6px 12px;
+    background:var(--paper); white-space:nowrap;
+  }
+  .back-link:hover{border-color:var(--accent); color:var(--accent);}
+  .brand{text-align:center; flex:1;}
+  .brand h1{margin:0; font-size:19px; font-weight:900;}
+  .brand span{
+    display:block; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:1.5px;
+    color:var(--ink-soft); text-transform:uppercase; margin-top:2px;
+  }
+  .spacer{width:78px;}
+
+  .search-wrap{max-width:1000px; margin:14px auto 0; position:relative;}
+  #search{
+    width:100%; padding:12px 44px 12px 14px; border-radius:3px; border:2px solid var(--ink);
+    background:#fff; color:var(--ink); font-family:'Cairo',sans-serif; font-size:15px; font-weight:600; outline:none;
+  }
+  #search:focus{border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft);}
+  .search-wrap::after{content:"⌕"; position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:20px; color:var(--ink-soft); pointer-events:none;}
+  #resultCount{max-width:1000px; margin:6px auto 0; font-size:12px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace; display:none;}
+
+  main{max-width:1000px; margin:0 auto; padding:24px 16px 70px;}
+
+  .sub-heading{font-size:15px; font-weight:700; margin:26px 0 10px; padding-right:10px; border-right:4px solid var(--accent); color:var(--ink);}
+  .sub-heading:first-child{margin-top:4px;}
+  .sub-heading em{display:block; font-style:normal; font-weight:600; font-size:12px; color:var(--ink-soft); margin-top:1px;}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px;}
+  .card{background:var(--paper-raised); border:1px solid var(--line); border-radius:4px; padding:14px 14px 12px; position:relative; overflow:hidden;}
+  .card::before{content:""; position:absolute; top:0; right:0; width:34px; height:34px; background:var(--accent); opacity:.15; clip-path:polygon(100% 0, 0 0, 100% 100%);}
+  .card h3{margin:0 0 8px; font-size:15px; font-weight:800;}
+  .card h3 small{display:block; font-weight:600; font-size:11.5px; color:var(--ink-soft); margin-top:1px;}
+  .card .doc-block{font-size:12.5px; line-height:1.85; color:var(--ink); margin-bottom:10px; white-space:pre-line;}
+  .card .doc-block .en{display:block; color:var(--ink-soft); font-size:11.5px;}
+
+  .fee-list{display:flex; flex-direction:column; gap:4px;}
+  .fee-row{display:flex; justify-content:space-between; align-items:baseline; gap:8px; font-size:12.5px; border-top:1px dashed var(--line); padding-top:4px;}
+  .fee-row .label{color:var(--ink-soft);}
+  .fee-row .amt{font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--gold); white-space:nowrap; direction:ltr;}
+  .fee-total{margin-top:8px; padding-top:8px; border-top:2px solid var(--ink); display:flex; justify-content:space-between; font-weight:800; font-size:13px;}
+  .fee-total .amt{font-family:'IBM Plex Mono',monospace; color:var(--stamp); direction:ltr;}
+
+  .plain-table{width:100%; border-collapse:collapse; font-size:13px; background:var(--paper-raised); border:1px solid var(--line); border-radius:4px; overflow:hidden;}
+  .plain-table th, .plain-table td{padding:9px 12px; text-align:right; vertical-align:top; border-bottom:1px solid var(--line);}
+  .plain-table th{background:var(--accent); color:#fff; font-weight:700; font-size:12.5px;}
+  .plain-table td.en{color:var(--ink-soft); font-size:12px;}
+  .plain-table tr:last-child td{border-bottom:none;}
+  .plain-table td.amt{font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--gold); white-space:nowrap;}
+  .table-wrap{overflow-x:auto; margin-bottom:6px;}
+
+  .note-list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px;}
+  .note-list li{background:var(--paper-raised); border:1px solid var(--line); border-radius:4px; padding:10px 12px; font-size:13px; display:flex; gap:10px; align-items:flex-start;}
+  .note-list li .n{flex:0 0 auto; width:22px; height:22px; border-radius:50%; background:var(--accent); color:#fff; font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center;}
+  .note-list .en{display:block; color:var(--ink-soft); font-size:11.5px; margin-top:2px;}
+
+  .stepper{list-style:none; margin:0; padding:0; position:relative;}
+  .stepper::before{content:""; position:absolute; top:6px; bottom:6px; right:15px; width:2px; background:var(--line);}
+  .stepper li{position:relative; padding:2px 46px 22px 0; min-height:34px;}
+  .stepper li:last-child{padding-bottom:2px;}
+  .step-num{position:absolute; top:0; right:0; width:32px; height:32px; border-radius:50%; background:var(--accent); color:#fff; font-family:'IBM Plex Mono',monospace; font-weight:700; display:flex; align-items:center; justify-content:center; font-size:14px; z-index:1;}
+  .step-title{font-weight:700; font-size:14px;}
+  .step-title .en{display:block; font-weight:600; color:var(--ink-soft); font-size:12px; margin-top:1px;}
+
+  mark{background:#F4D35E; color:var(--ink); border-radius:2px; padding:0 1px;}
+  .hidden{display:none !important;}
+  #noResults{text-align:center; color:var(--ink-soft); padding:40px 0; font-size:14px;}
+
+  footer{text-align:center; padding:26px 16px 40px; color:var(--ink-soft); font-size:11.5px; font-family:'IBM Plex Mono',monospace;}
+
+  @media (max-width:600px){
+    .brand h1{font-size:16px;}
+    .spacer{display:none;}
+    .back-link{font-size:12px; padding:5px 9px;}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="head-row">
+    <a class="back-link" href="index.html">→ الرئيسية</a>
+    <div class="brand">
+      <h1>إجراءات إصدار الهوية والإقامة</h1>
+      <span>SECTION 2 · ID &amp; STAMPING WORKFLOW</span>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="search-wrap">
+    <input id="search" type="text" placeholder="ابحث بهذا القسم… / search this section">
+  </div>
+  <div id="resultCount"></div>
+</header>
+<main>
+
+<div class="sub-heading">٢.١ تسلسل الإجراءات الإلزامي <em>2.1 Mandatory Workflow</em></div>
+<p style="font-size:13px; color:var(--ink-soft); margin-top:0;">لا يمكن التقديم على الهوية أو تثبيت الإقامة إلا بعد إنجاز الخطوات بالترتيب التالي:<br>
+<span class="en">Emirates ID and stamping cannot proceed until these steps are completed in order.</span></p>
+<ol class="stepper" data-search="تسلسل الإجراءات workflow تأشيرة عقد عمل تعديل وضع فحص طبي هوية تثبيت">
+  <li><span class="step-num">1</span><div class="step-title">إصدار التأشيرة <span class="en">Visa Issuance</span></div></li>
+  <li><span class="step-num">2</span><div class="step-title">عقد العمل وبطاقة العمل <span class="en">Labor Contract &amp; Labor Card</span></div></li>
+  <li><span class="step-num">3</span><div class="step-title">تعديل الوضع <span class="en">Change Status</span></div></li>
+  <li><span class="step-num">4</span><div class="step-title">الفحص الطبي (مِدكِل) <span class="en">Medical Fitness Test</span></div></li>
+  <li><span class="step-num">5</span><div class="step-title">إصدار الهوية الإماراتية <span class="en">Emirates ID Application</span></div></li>
+  <li><span class="step-num">6</span><div class="step-title">تثبيت الإقامة <span class="en">Residency Stamping</span></div></li>
+</ol>
+
+<p id="noResults" class="hidden">ما فيه نتائج مطابقة · No matching results</p>
+</main>
+<footer>دليل داخلي للاستقبال — عدّل المحتوى مباشرة من هذا الملف في GitHub</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var searchEl = document.getElementById('search');
+  var searchables = document.querySelectorAll('[data-search]');
+  var countEl = document.getElementById('resultCount');
+  var noResults = document.getElementById('noResults');
+
+  function clearHighlights(){
+    document.querySelectorAll('mark').forEach(function(m){
+      var parent = m.parentNode;
+      parent.replaceChild(document.createTextNode(m.textContent), m);
+      parent.normalize();
+    });
+  }
+
+  function highlightText(root, term){
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var nodes = [];
+    var node;
+    while(node = walker.nextNode()){
+      if(node.nodeValue.toLowerCase().indexOf(term.toLowerCase()) !== -1) nodes.push(node);
+    }
+    nodes.forEach(function(n){
+      var esc = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      var regex = new RegExp('(' + esc + ')', 'gi');
+      var span = document.createElement('span');
+      span.innerHTML = n.nodeValue.replace(regex, '<mark>$1</mark>');
+      n.parentNode.replaceChild(span, n);
+    });
+  }
+
+  if(searchEl){
+    searchEl.addEventListener('input', function(){
+      var q = searchEl.value.trim();
+      clearHighlights();
+      if(q.length === 0){
+        searchables.forEach(function(el){ el.classList.remove('hidden'); });
+        countEl.style.display = 'none';
+        noResults.classList.add('hidden');
+        return;
+      }
+      var needle = q.toLowerCase();
+      var matches = 0;
+      searchables.forEach(function(el){
+        var hay = (el.getAttribute('data-search') + ' ' + el.textContent).toLowerCase();
+        var isMatch = hay.indexOf(needle) !== -1;
+        el.classList.toggle('hidden', !isMatch);
+        if(isMatch){ matches++; highlightText(el, q); }
+      });
+      countEl.style.display = 'block';
+      countEl.textContent = matches + ' نتيجة · results';
+      noResults.classList.toggle('hidden', matches !== 0);
+    });
+  }
+});
+</script>
+</body>
+</html>
